@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,17 @@ Route::middleware(['auth'])->group(function(){
     
     //Admin
     Route::middleware(['userAccess:admin'])->group(function (){
+        //Dashboard dan Profil
         Route::get('/admin',[UserController::class,'admin']);
+
+        //Stock obat
+        Route::get('/admin/stock',[StockController::class,'index']);
+        Route::get('/admin/stock/create',[StockController::class,'create']);
+        Route::get('/admin/stock/update',[StockController::class,'update']);
+
+        //Resep obat
+        Route::get('/admin/transaction',[TransactionController::class,'index']);
+        Route::get('/admin/transaction/create',[TransactionController::class,'create']);
     });
 
     //Logout
