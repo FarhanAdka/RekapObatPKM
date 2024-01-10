@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +14,22 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware(['guest'])->group(function(){
+    Route::get('/',[SessionController::class,'index']);
+    Route::post('/',[SessionController::class,'login']);
+});
+Route::get('/home',function(){
+    return redirect('/user');
+})->name('home');
+Route::middleware(['auth'])->group(function(){
+    //User
+    Route::get('/user',[UserController::class,'index']);
+    
+    //Admin
+    Route::middleware(['userAccess:admin'])->group(function (){
+        Route::get('/admin',[UserController::class,'admin']);
+    });
 
-Route::get('/', function () {
-    return view('welcome');
+    //Logout
+    Route::get('/logout',[SessionController::class,'logout']);
 });
