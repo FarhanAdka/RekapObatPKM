@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stock', function (Blueprint $table) {
+        Schema::create('transaction_item', function (Blueprint $table){
             $table->id();
-            $table->string('nama_obat');
+            $table->unsignedBigInteger('transaction_id');
+            $table->unsignedBigInteger('stock_id');
             $table->enum('satuan', ['tablet', 'kapsul', 'botol', 'tube', 'pot', 'sachet', 'suppo']);
-            $table->integer('stok_masuk')->default(0);
-            $table->integer('stok_keluar')->default(0);
-            $table->integer('stok_sisa')->default(0);
+            $table->integer('jumlah_obat');
             $table->decimal('harga_satuan', 10, 2);
-            $table->date('expired_date');
+            $table->decimal('harga_subtotal', 10, 2); 
             $table->timestamps();
+            $table->foreign('transaction_id')->references('id')->on('transaction')->onDelete('cascade');
+            $table->foreign('stock_id')->references('id')->on('stock')->onDelete('cascade');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stock');
+        Schema::dropIfExists('transaction_item');
     }
 };

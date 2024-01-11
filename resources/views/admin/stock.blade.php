@@ -1,5 +1,6 @@
 @extends('layout.template')
 @section('content')
+@include('component.alert')
 <!-- START DATA -->
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <!-- FORM PENCARIAN -->
@@ -20,26 +21,37 @@
             <tr>
                 <th class="col-md-1">No</th>
                 <th class="col-md-2">Nama Obat</th>
-                <th class="col-md-2">Satuan Jumlah</th>
-                <th class="col-md-1">Jumlah</th>
+                <th class="col-md-2">Satuan</th>
+                <th class="col-md-1">Stok Masuk</th>
+                <th class="col-md-1">Stok Keluar</th>
+                <th class="col-md-1">Stok Sisa</th>
+                <th class="col-md-2">Harga Satuan</th>
                 <th class="col-md-2">Expired Date</th>
                 <th class="col-md-2">Aksi</th>
             </tr>
         </thead>
         <tbody>
+            <?php $i=$data->firstItem() ?>
+            @foreach ($data as $item)
             <tr>
-                <td>1</td>
-                <td>Amoksisilin</td>
-                <td>Sachet</td>
-                <td>1</td>
-                <td>01/01/24</td>
+                <td>{{$i}}</td>
+                <td>{{$item->nama_obat}}</td>
+                <td>{{$item->satuan}}</td>
+                <td>{{$item->stok_masuk}}</td>
+                <td>{{$item->stok_keluar}}</td>
+                <td>{{$item->stok_sisa}}</td>
+                <td>{{$item->harga_satuan}}</td>
+                <td>{{$item->expired_date}}</td>
                 <td>
-                    <a href='' class="btn btn-warning btn-sm">Edit</a>
+                    <a href='{{url('mahasiswa/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>
                     <a href='' class="btn btn-danger btn-sm">Del</a>
                 </td>
             </tr>
+            <?php $i++ ?>
+            @endforeach
         </tbody>
     </table>
+    {{$data->links()}}
                
 </div>
 <!-- AKHIR DATA -->

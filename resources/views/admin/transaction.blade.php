@@ -23,10 +23,10 @@
                 <th class="col-md-2">Alamat</th>
                 <th class="col-md-1">Rt/Rw</th>
                 <th class="col-md-2">Nama Obat</th>
-                <th class="col-md-2">Satuan Jumlah</th>
+                <th class="col-md-2">Satuan</th>
                 <th class="col-md-1">Jumlah</th>
                 <th class="col-md-2">Harga</th>
-                <th class="col-md-2">Tanggal Pembelian</th>
+                <th class="col-md-2">Tanggal Pelayanan</th>
                 <th class="col-md-2">Aksi</th>
             </tr>
         </thead>

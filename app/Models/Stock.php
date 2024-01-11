@@ -8,16 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class stock extends Model
 {
     use HasFactory;
+    protected $table = 'stock';
     protected $fillable = [
         'nama_obat',
-        'satuan_jumlah',
-        'jumlah',
-        'expired_date',
+        'satuan',
+        'stok_masuk',
+        'stok_keluar',
+        'stok_sisa',
+        'harga_satuan',
+        'expired_date'
     ];
+    public function getStokSisaAttribute()
+    {
+        return $this->stok_masuk - $this->stok_keluar;
+    }
 
     public function transaction()
     {
-        return $this->belongsToMany(Transaction::class, 'stock_transaction', 'stock_id', 'transaction_id')
+        return $this->belongsToMany(Transaction::class, 'transaction_item')
             ->withPivot('satuan_jumlah', 'jumlah_obat')
             ->withTimestamps();
     }

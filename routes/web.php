@@ -33,9 +33,11 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/admin',[UserController::class,'admin']);
 
         //Stock obat
-        Route::get('/admin/stock',[StockController::class,'index']);
-        Route::get('/admin/stock/create',[StockController::class,'create']);
+        Route::get('/admin/stock',[StockController::class,'index'])->name('admin.stock.index');
+        Route::get('/admin/stock/create',[StockController::class,'create'])->name('admin.stock.create');
         Route::get('/admin/stock/update',[StockController::class,'update']);
+        Route::post('/admin/stock/store',[StockController::class,'store'])->name('admin.stock.store');
+        Route::post('/admin/'.$data->id.'/edit',[StockController::class,'store'])->name('admin.stock.store');
 
         //Resep obat
         Route::get('/admin/transaction',[TransactionController::class,'index']);
