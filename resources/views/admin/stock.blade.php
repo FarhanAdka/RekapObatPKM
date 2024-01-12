@@ -5,8 +5,8 @@
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <!-- FORM PENCARIAN -->
     <div class="pb-3">
-        <form class="d-flex" action="" method="get">
-            <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
+        <form class="d-flex" action="{{url('admin/stock')}}" method="get">
+            <input class="form-control me-1" type="search" name="keyword" value="{{ Request::get('keyword') }}" placeholder="Masukkan kata kunci" aria-label="Search">
             <button class="btn btn-secondary" type="submit">Cari</button>
         </form>
     </div>
@@ -43,8 +43,12 @@
                 <td>{{$item->harga_satuan}}</td>
                 <td>{{$item->expired_date}}</td>
                 <td>
-                    <a href='{{url('mahasiswa/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>
-                    <a href='' class="btn btn-danger btn-sm">Del</a>
+                    <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>
+                    <form onsubmit="return confirm('Apakah anda yakin?')"class='d-inline' action="{{ url('admin/stock/'.$item->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
+                    </form>                    
                 </td>
             </tr>
             <?php $i++ ?>

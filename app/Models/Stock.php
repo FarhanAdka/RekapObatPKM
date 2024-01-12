@@ -14,7 +14,6 @@ class stock extends Model
         'satuan',
         'stok_masuk',
         'stok_keluar',
-        'stok_sisa',
         'harga_satuan',
         'expired_date'
     ];

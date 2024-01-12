@@ -38,12 +38,6 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="stok_sisa" class="col-sm-2 col-form-label">Stok Sisa</label>
-            <div class="col-sm-10">
-                <input type="number" class="form-control" value="{{ old('stok_sisa') }}" name='stok_sisa' id="stok_sisa">
-            </div>
-        </div>
-        <div class="mb-3 row">
             <label for="harga_satuan" class="col-sm-2 col-form-label">Harga Satuan</label>
             <div class="col-sm-10">
                 <input type="number" step="0.01" class="form-control" value="{{ old('harga_satuan') }}"name='harga_satuan' id="harga_satuan">

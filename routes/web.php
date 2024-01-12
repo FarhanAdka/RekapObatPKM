@@ -37,7 +37,10 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/admin/stock/create',[StockController::class,'create'])->name('admin.stock.create');
         Route::get('/admin/stock/update',[StockController::class,'update']);
         Route::post('/admin/stock/store',[StockController::class,'store'])->name('admin.stock.store');
-        Route::post('/admin/'.$data->id.'/edit',[StockController::class,'store'])->name('admin.stock.store');
+        Route::get('/admin/stock/{id}/edit',[StockController::class,'edit'])->name('admin.stock.{id}.edit');
+        Route::put('/admin/stock/{id}/edit',[StockController::class,'update'])->name('admin.stock.store');
+        Route::delete('/admin/stock/{id}', [StockController::class, 'destroy'])->name('admin.stock.destroy');
+
 
         //Resep obat
         Route::get('/admin/transaction',[TransactionController::class,'index']);
