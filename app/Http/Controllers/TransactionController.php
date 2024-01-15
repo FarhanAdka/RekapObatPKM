@@ -13,16 +13,24 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword=$request->keyword;
-        if(strlen($keyword)){
-            $data=Transaction::where('nama_pasien','like',"%$keyword%")->orderBy('nama_pasien','asc')->orderBy('tanggal_pelayanan','asc')->paginate(10);
-            // ->orWhere('nama_obat','like',"%keyword%")
+        $keyword = $request->keyword;
+        $tanggalPelayanan = $request->tanggal_pelayanan;
+
+        $query = Transaction::orderBy('nama_pasien', 'asc')->orderBy('tanggal_pelayanan', 'asc');
+
+        if (strlen($keyword)) {
+            $query->where('nama_pasien', 'like', "%$keyword%");
         }
-        else{
-            $data=Transaction::orderBy('nama_pasien','asc')->orderBy('tanggal_pelayanan','asc')->paginate(10);
+
+        if ($tanggalPelayanan) {
+            $query->whereDate('tanggal_pelayanan', $tanggalPelayanan);
         }
-        return view('admin.transaction')->with('data',$data);
+
+        $data = $query->paginate(10);
+
+        return view('admin.transaction')->with('data', $data);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -137,6 +145,6 @@ class TransactionController extends Controller
     public function destroy(string $id)
     {
         Transaction::where('id',$id)->delete();
-        return redirect()->route('admin.transaction.index')->with('success', 'Transaksi berhasil dihapus');
+        return redirect()->route('admin.transaction.index')->with('success', 'Transa berhasil dihapus');
     }
 }

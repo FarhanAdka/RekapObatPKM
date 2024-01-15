@@ -4,11 +4,21 @@
 <!-- START DATA -->
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <!-- FORM PENCARIAN -->
-    <div class="pb-3">
-        <form class="d-flex" action="{{url('admin/transaction')}}" method="get">
-            <input class="form-control me-1" type="search" name="keyword" value="{{ Request::get('keyword') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-            <button class="btn btn-secondary" type="submit">Cari</button>
-        </form>
+    <form class="d-flex" action="{{ url('admin/transaction') }}" method="get">
+        <div class="mb-3 me-3 d-flex align-items-end"> <!-- Tambahkan class align-items-end -->
+            <label for="keyword" class="form-label mb-0">Cari Pasien</label> <!-- Tambahkan class mb-0 -->
+            <input type="search" class="form-control mb-0" id="keyword" name="keyword" value="{{ Request::get('keyword') }}" placeholder="Masukkan kata kunci">
+        </div>
+    
+        <div class="mb-3 me-3 d-flex align-items-end"> <!-- Tambahkan class align-items-end -->
+            <label for="tanggal_pelayanan" class="form-label mb-0">Tanggal Pelayanan</label> <!-- Tambahkan class mb-0 -->
+            <input type="date" class="form-control mb-0" id="tanggal_pelayanan" name="tanggal_pelayanan" value="{{ Request::get('tanggal_pelayanan') }}" placeholder="Pilih tanggal pelayanan">
+        </div>
+    
+        <button class="btn btn-secondary" type="submit">Cari</button> <!-- Tambahkan class align-self-end -->
+    </form>
+    
+        
     </div>
     
     <!-- TOMBOL TAMBAH DATA -->
