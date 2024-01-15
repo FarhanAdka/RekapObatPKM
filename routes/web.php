@@ -42,9 +42,14 @@ Route::middleware(['auth'])->group(function(){
         Route::delete('/admin/stock/{id}', [StockController::class, 'destroy'])->name('admin.stock.destroy');
 
 
-        //Resep obat
-        Route::get('/admin/transaction',[TransactionController::class,'index']);
-        Route::get('/admin/transaction/create',[TransactionController::class,'create']);
+        //Transaction
+        Route::get('/admin/transaction',[TransactionController::class,'index'])->name('admin.transaction.index');
+        Route::get('/admin/transaction/create',[TransactionController::class,'create'])->name('admin.transaction.create');
+        Route::get('/admin/transaction/update',[TransactionController::class,'update']);
+        Route::post('/admin/transaction/store',[TransactionController::class,'store'])->name('admin.transaction.store');
+        Route::get('/admin/transaction/{id}/edit',[TransactionController::class,'edit'])->name('admin.transaction.{id}.edit');
+        Route::put('/admin/transaction/{id}/edit',[TransactionController::class,'update'])->name('admin.transaction.store');
+        Route::delete('/admin/transaction/{id}', [TransactionController::class, 'destroy'])->name('admin.transaction.destroy');
     });
 
     //Logout

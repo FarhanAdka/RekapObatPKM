@@ -13,8 +13,8 @@ class Transaction extends Model
         'nama_pasien',
         'alamat',
         'rt_rw',
-        'harga',
-        'tanggal_pembelian',
+        'harga_total',
+        'tanggal_pelayanan',
     ];
 
     public function stock()
