@@ -12,6 +12,7 @@ class StockController extends Controller
      */
     public function index(Request $request)
     {
+        $title='Data Stok';
         $keyword=$request->keyword;
         if(strlen($keyword)){
             $data=Stock::where('nama_obat','like',"%$keyword%")->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
@@ -20,7 +21,7 @@ class StockController extends Controller
         else{
             $data=Stock::orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
         }
-        return view('admin.stock')->with('data',$data);
+        return view('admin.stock')->with('data',$data)->with($title);
     }
 
     /**

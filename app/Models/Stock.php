@@ -22,10 +22,17 @@ class stock extends Model
         return $this->stok_masuk - $this->stok_keluar;
     }
 
-    public function transaction()
-    {
-        return $this->belongsToMany(Transaction::class, 'transaction_item')
-            ->withPivot('satuan_jumlah', 'jumlah_obat')
-            ->withTimestamps();
+    public function transaction(){
+        return $this->hasMany(Transaction::class,'transaction_item');
     }
+    public static function boot()
+    {
+        parent::boot();
+
+        // Event listener untuk menyimpan nilai stok_sisa sebelum menyimpan atau mengupdate model
+        static::saving(function ($stock) {
+            $stock->stok_sisa = $stock->stok_masuk - $stock->stok_keluar;
+        });
+    }
+
 }

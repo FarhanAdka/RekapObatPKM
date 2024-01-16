@@ -1,4 +1,5 @@
 @extends('layout.template')
+@section('title', 'Tambah Transaksi')
 @section('content')
 @include('component.alert')
 <!-- START FORM -->
@@ -24,9 +25,21 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="total_harga" class="col-sm-2 col-form-label">Total Harga</label>
+            <label for="stock_id" class="col-sm-2 col-form-label">Nama Obat</label>
             <div class="col-sm-10">
-                <input type="number" step="0.01" class="form-control" value="{{ old('total_harga') }}"name='total_harga' id="total_harga">
+                <!-- Tambahkan select untuk memilih obat -->
+                <select class="form-select" name="stock_id" id="stock_id" required>
+                    <option value="" disabled selected>Pilih Nama Obat</option>
+                    @foreach ($stocks as $stock)
+                        <option value="{{ $stock->id }}">{{ $stock->nama_obat }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="jumlah_obat" class="col-sm-2 col-form-label">Jumlah Obat</label>
+            <div class="col-sm-10">
+                <input type="number" step="1" class="form-control" value="{{ old('jumlah_obat') }}" name='jumlah_obat' id="jumlah_obat" required>
             </div>
         </div>
         <div class="mb-3 row">

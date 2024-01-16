@@ -1,4 +1,5 @@
 @extends('layout.template')
+@section('title', 'Tambah Stok')
 @section('content')
 @include('component.alert')
 <!-- START FORM -->

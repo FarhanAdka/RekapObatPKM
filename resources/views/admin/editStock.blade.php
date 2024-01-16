@@ -1,4 +1,5 @@
 @extends('layout.template')
+@section('title', 'Edit Stok')
 @section('content')
 @include('component.alert')
 <form action='{{ url("admin/stock/$data->id/edit") }}' method='post'>

@@ -1,4 +1,5 @@
 @extends('layout.template')
+@section('title', 'Data Stok')
 @section('content')
 @include('component.alert')
 <!-- START DATA -->

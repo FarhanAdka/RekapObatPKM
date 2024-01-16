@@ -16,10 +16,24 @@ return new class extends Migration
             $table->string('nama_pasien');
             $table->string('alamat');
             $table->string('rt_rw');
+            $table->unsignedBigInteger('stock_id')->constrained;
+            $table->integer('jumlah_obat');
             $table->decimal('total_harga',10,2)->default(0);
             $table->date('tanggal_pelayanan');
             $table->timestamps();
+            $table->foreign('stock_id')->references('id')->on('stock')->onDelete('cascade');
         });
+        // Schema::create('transaction_item', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->unsignedBigInteger('transaction_id')->constrained;
+        //     $table->unsignedBigInteger('stock_id')->constrained;
+        //     $table->integer('jumlah_obat');
+        //     $table->decimal('harga_subtotal', 10, 2); 
+        //     $table->timestamps();
+        //     $table->foreign('transaction_id')->references('id')->on('transaction')->onDelete('cascade');
+        //     $table->foreign('stock_id')->references('id')->on('stock')->onDelete('cascade');
+        // });
+        
     }
 
     /**
@@ -27,6 +41,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('transaction_item');
         Schema::dropIfExists('transaction');
     }
 };

@@ -1,5 +1,7 @@
 <?php
 
+// use App\Models\stock;
+// use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
