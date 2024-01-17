@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/admin/transaction/{id}/edit',[TransactionController::class,'edit'])->name('admin.transaction.{id}.edit');
         Route::put('/admin/transaction/{id}/edit',[TransactionController::class,'update'])->name('admin.transaction.store');
         Route::delete('/admin/transaction/{id}', [TransactionController::class, 'destroy'])->name('admin.transaction.destroy');
+        Route::get('/admin/transaction/export/excel',[TransactionController::class, 'exportExcel'])->name('admin.transaction.excel');
     });
 
     //Logout

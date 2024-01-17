@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportTransaction;
 use App\Models\Transaction;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TransactionController extends Controller
 {
@@ -16,7 +18,7 @@ class TransactionController extends Controller
         $keyword = $request->keyword;
         $tanggalPelayanan = $request->tanggal_pelayanan;
 
-        $query = Transaction::orderBy('nama_pasien', 'asc')->orderBy('tanggal_pelayanan', 'asc');
+        $query = Transaction::orderBy('tanggal_pelayanan', 'asc')->orderBy('created_at', 'asc');
 
         if (strlen($keyword)) {
             $query->where('nama_pasien', 'like', "%$keyword%");
@@ -125,5 +127,8 @@ class TransactionController extends Controller
     {
         Transaction::where('id',$id)->delete();
         return redirect()->route('admin.transaction.index')->with('success', 'Transa berhasil dihapus');
+    }
+    public function exportExcel(){
+        return Excel::download(new ExportTransaction,"rekapTransaksi.xlsx");
     }
 }
