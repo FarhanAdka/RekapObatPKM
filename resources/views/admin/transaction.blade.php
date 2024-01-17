@@ -4,6 +4,10 @@
 @include('component.alert')
 <!-- START DATA -->
 <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="pb-3">
+        <a href='{{ url("admin") }}' class="btn btn-secondary">Kembali</a>
+        <a href='' class="btn btn-secondary">Export PDF</a>
+    </div>
     <!-- FORM PENCARIAN -->
     <form class="d-flex" action="{{ url('admin/transaction') }}" method="get">
         <div class="mb-3 me-3 d-flex align-items-end"> <!-- Tambahkan class align-items-end -->

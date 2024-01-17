@@ -115,7 +115,9 @@ class StockController extends Controller
             'harga_satuan'=>$request->harga_satuan,
             'expired_date'=>$request->expired_date
         ];
-        Stock::where('id',$id)->update($data);
+        $stock = Stock::find($id);
+        $stock->fill($data);
+        $stock->save();
         return redirect()->route('admin.stock.index')->with('success', 'Stok berhasil diubah');
     }
 

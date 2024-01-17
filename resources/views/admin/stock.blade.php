@@ -4,6 +4,9 @@
 @include('component.alert')
 <!-- START DATA -->
 <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <div class="pb-3">
+        <a href='{{ url("admin") }}' class="btn btn-secondary">Kembali</a>
+    </div>
     <!-- FORM PENCARIAN -->
     <div class="pb-3">
         <form class="d-flex" action="{{url('admin/stock')}}" method="get">

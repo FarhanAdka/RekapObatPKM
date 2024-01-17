@@ -6,7 +6,9 @@
     @csrf 
     @method('PUT')
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <a href='{{ url("admin/transaction") }}' class="btn btn-secondary"><< Kembali</a>
+        <div class="pb-3">
+            <a href='{{ url("admin/transaction") }}' class="btn btn-secondary">Kembali</a>
+        </div>
         <div class="mb-3 row">
             <label for="nama_pasien" class="col-sm-2 col-form-label">Nama Pasien</label>
             <div class="col-sm-10">
@@ -26,9 +28,9 @@
             </div>
         </div>
         <div class="mb-3 row">
-            <label for="total_harga" class="col-sm-2 col-form-label">Total Harga</label>
+            <label for="jumlah_obat" class="col-sm-2 col-form-label">Jumlah Obat</label>
             <div class="col-sm-10">
-                <input type="number" step="0.01" class="form-control" value="{{ old('total_harga', $data->total_harga) }}"name='total_harga' id="total_harga">
+                <input type="number" step="1" class="form-control" value="{{ old('jumlah_obat', $data->jumlah_obat) }}" name='jumlah_obat' id="jumlah_obat">
             </div>
         </div>
         <div class="mb-3 row">
@@ -40,7 +42,8 @@
         <div class="mb-3 row">
             <label for="" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary" name="submit">SIMPAN</button>
+                <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                <a href='{{ url("admin/transaction") }}' class="btn btn-danger">Batal</a>
             </div>
         </div>
     </div>

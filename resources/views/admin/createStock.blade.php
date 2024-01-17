@@ -6,6 +6,9 @@
 <form action="{{ url('/admin/stock/store') }}" method="post">
     @csrf
     <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <div class="pb-3">
+            <a href='{{ url("admin/stock") }}' class="btn btn-secondary">Kembali</a>
+        </div>
         <div class="mb-3 row">
             <label for="nama_obat" class="col-sm-2 col-form-label">Nama Obat</label>
             <div class="col-sm-10">
@@ -53,7 +56,8 @@
         <div class="mb-3 row">
             <label for="submit" class="col-sm-2 col-form-label"></label>
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary" name="submit">SIMPAN</button>
+                <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+                <a href='{{ url("admin/stock") }}' class="btn btn-danger">Batal</a>
             </div>
         </div>
     </div>

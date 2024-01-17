@@ -97,6 +97,7 @@ class TransactionController extends Controller
             'nama_pasien' => 'required',
             'alamat' => 'required',
             'rt_rw' => 'required',
+            'jumlah_obat' => 'required|numeric|min:1',
             'tanggal_pelayanan' => 'required|date',
         ], [
             'nama_pasien.required' => 'Nama pasien wajib diisi',
@@ -110,6 +111,7 @@ class TransactionController extends Controller
         $transaction->nama_pasien = $request->nama_pasien;
         $transaction->alamat = $request->alamat;
         $transaction->rt_rw = $request->rt_rw;
+        $transaction->jumlah_obat = $request->jumlah_obat;
         $transaction->tanggal_pelayanan = $request->tanggal_pelayanan;
         $transaction->save();
 
