@@ -16,11 +16,15 @@ class UserController extends Controller
     }
     function admin(){
         $admin=User::where('id',auth()->user()->id)->get()->first();
-        $data = array(
+        $data = [
             'role'=>'Administrator',
             'title'=>'Dashboard',
             'name'=>$admin->name
-        );
-        return view('admin.dashboard',$data);
+        ];
+        // Mengambil stok yang akan habis dari StockController
+        $stockController = new StockController();
+        $expiringStock = $stockController->getExpiringStock();
+
+        return view('admin.dashboard', $data)->with('expiringStock', $expiringStock);
     }
 }

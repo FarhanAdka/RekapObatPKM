@@ -3,6 +3,7 @@
 @section('content')
 @include('component.alert')
 <!-- START DATA -->
+<div class="pb-3" style="text-align: center;"><span style="color: #000080;"><strong>DATA STOK OBAT</strong></span></div>
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <div class="pb-3">
         <a href='{{ url("admin") }}' class="btn btn-secondary">Kembali</a>

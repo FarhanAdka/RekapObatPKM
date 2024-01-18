@@ -1,3 +1,17 @@
+<div class="pb-3">
+    <a href='{{ url("admin/transaction") }}' class="btn btn-secondary">Kembali</a>
+</div>
+<form method="GET" action="{{ url("/admin/transaction/table") }}">
+    <div class="mb-3">
+        <label for="tanggal_pelayanan" class="form-label">Filter Tanggal Pelayanan:</label>
+        <input type="date" class="form-control" id="tanggal_pelayanan" name="tanggal_pelayanan" value="{{ Request::get('tanggal_pelayanan') }}" placeholder="Pilih tanggal pelayanan">
+    </div>
+    <button class="btn btn-secondary" type="submit">Filter</button>
+
+    <!-- Tombol Export as Excel -->
+    <a href="{{url("/admin/transaction/export/excel")}}?tanggal_pelayanan={{ Request::get('tanggal_pelayanan') }}" class="btn btn-success">Export as Excel</a>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -9,7 +23,6 @@
             <th class="col-md-1">Jumlah Obat</th>
             <th class="col-md-1">Total Harga</th>
             <th class="col-md-2">Tanggal Pelayanan</th>
-            <th class="col-md-2">Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -23,14 +36,6 @@
             <td>{{ $item->jumlah_obat }}</td>
             <td>{{ $item->total_harga }}</td>
             <td>{{ $item->tanggal_pelayanan }}</td>
-            <td>
-                <a href='{{ url("admin/transaction/$item->id/edit") }}' class="btn btn-warning btn-sm">Edit</a>
-                <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="{{ url("admin/transaction/$item->id") }}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
-                </form>
-            </td>
         </tr>
         @endforeach
     </tbody>

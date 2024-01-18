@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class StockController extends Controller
 {
@@ -64,7 +65,7 @@ class StockController extends Controller
             'expired_date'=>$request->expired_date
         ];
         Stock::create($data);
-        return redirect()->route('admin.stock.index')->with('success', 'Stok berhasil ditambahkan');
+        return redirect()->route('admin.stock.create')->with('success', 'Stok berhasil ditambahkan')->withInput($request->except(['_token', 'stock_id', 'jumlah_obat']));
     }
 
     /**
@@ -128,5 +129,12 @@ class StockController extends Controller
     {
         stock::where('id',$id)->delete();
         return redirect()->route('admin.stock.index')->with('success', 'Stok berhasil dihapus');
+    }
+    public function getExpiringStock()
+    {
+        $limitDate = Carbon::now()->addMonths(3)->format('Y-m-d');
+        $expiringStock = Stock::where('expired_date', '<=', $limitDate)->get();
+
+        return $expiringStock;
     }
 }

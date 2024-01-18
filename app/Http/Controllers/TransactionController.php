@@ -39,7 +39,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $stocks = Stock::all();
+        $stocks = Stock::orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc')->get();
         return view('admin.createTransaction', compact('stocks'));
     }
 
@@ -70,7 +70,7 @@ class TransactionController extends Controller
         $stock->stok_keluar += $request->jumlah_obat;
         $stock->save();
 
-        return redirect()->route('admin.transaction.index')->with('success', 'Transaksi berhasil ditambahkan');
+        return redirect()->route('admin.transaction.create')->with('success', 'Transaksi berhasil ditambahkan')->withInput($request->except(['_token', 'stock_id', 'jumlah_obat']));
     }
 
 
@@ -128,7 +128,29 @@ class TransactionController extends Controller
         Transaction::where('id',$id)->delete();
         return redirect()->route('admin.transaction.index')->with('success', 'Transa berhasil dihapus');
     }
-    public function exportExcel(){
-        return Excel::download(new ExportTransaction,"rekapTransaksi.xlsx");
+    public function table(Request $request){
+        $tanggalPelayanan = $request->tanggal_pelayanan;
+        $query = Transaction::orderBy('tanggal_pelayanan', 'asc')->orderBy('created_at', 'asc');
+
+        if ($tanggalPelayanan) {
+            $query->whereDate('tanggal_pelayanan', $tanggalPelayanan);
+        }
+        $data = $query->get();
+
+        return view('component.tableTransaction', compact('data'));
+    }
+    public function exportExcel(Request $request)
+    {
+        $tanggalPelayanan = $request->tanggal_pelayanan;
+
+        // Query data sesuai tanggal pelayanan yang dipilih
+        $data = Transaction::orderBy('created_at', 'asc');
+        if ($tanggalPelayanan) {
+            $data->whereDate('tanggal_pelayanan', $tanggalPelayanan);
+        }
+        $data = $data->get();
+
+        // Export data menggunakan ExportTransaction
+        return Excel::download(new ExportTransaction($data), 'rekapTransaksi.xlsx');
     }
 }
