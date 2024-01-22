@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Carbon;
 
 class TransactionController extends Controller
 {
@@ -39,7 +40,10 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $stocks = Stock::orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc')->get();
+
+        $today = Carbon::today()->toDateString();
+
+        $stocks = Stock::where('stok_sisa', '>', 0)->whereDate('expired_date', '>', $today)->orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc')->get();
         return view('admin.createTransaction', compact('stocks'));
     }
 
@@ -47,17 +51,29 @@ class TransactionController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request){
+        
+
+        $stock = Stock::find($request->stock_id);
         $request->validate([
             'nama_pasien' => 'required',
             'alamat' => 'required',
             'rt_rw' => 'required',
             'stock_id' => 'required',
-            'jumlah_obat' => 'required|numeric|min:1',
+            'jumlah_obat' => 'required|numeric|min:1|max:'. $stock->stok_sisa,
             'tanggal_pelayanan' => 'required|date',
-        ]);
+        ],[
 
-        // Menggunakan nilai total_harga yang dihasilkan oleh getTotalHargaAttribute
-        $transaction = Transaction::create([
+            'nama_pasien.required'=> 'Nama pasien wajib diisi',
+            'alamat.required'=> 'Alamat wajib diisi',
+            'rt_rw.required'=> 'RT/RW wajib diisi',
+            'stock_id.required'=> 'Obat wajib diisi',
+            'jumlah_obat.required'=> 'Jumlah wajib diisi',
+            'tanggal_pelayanan.required'=> 'Tanggal wajib diisi',
+            'jumlah_obat.min:1'=> 'Jumlah obat minimal satu',
+            'jumlah_obat.max'=> 'Jumlah obat melebihi stok sisa'
+
+        ]);
+        Transaction::create([
             'nama_pasien' => $request->nama_pasien,
             'alamat' => $request->alamat,
             'rt_rw' => $request->rt_rw,
@@ -66,11 +82,11 @@ class TransactionController extends Controller
             'tanggal_pelayanan' => $request->tanggal_pelayanan
         ]);
 
-        $stock = Stock::find($request->stock_id);
         $stock->stok_keluar += $request->jumlah_obat;
         $stock->save();
 
         return redirect()->route('admin.transaction.create')->with('success', 'Transaksi berhasil ditambahkan')->withInput($request->except(['_token', 'stock_id', 'jumlah_obat']));
+    
     }
 
 

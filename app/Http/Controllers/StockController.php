@@ -137,4 +137,9 @@ class StockController extends Controller
 
         return $expiringStock;
     }
+    public function getOutOfStock(){
+        $today = Carbon::today()->toDateString();
+        $outOfStock=stock::where('stok_sisa','<=',10)->whereDate('expired_date', '>', $today)->get();
+        return $outOfStock;
+    }
 }
