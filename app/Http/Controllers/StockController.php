@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Carbon\Carbon;
 
 class StockController extends Controller
@@ -13,7 +14,13 @@ class StockController extends Controller
      */
     public function index(Request $request)
     {
-        $title='Data Stok';
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Data Stok Obat',
+            'username' => $admin->name,
+
+        );
         $keyword=$request->keyword;
         if(strlen($keyword)){
             $data=Stock::where('nama_obat','like',"%$keyword%")->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
@@ -22,7 +29,7 @@ class StockController extends Controller
         else{
             $data=Stock::orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
         }
-        return view('admin.stock')->with('data',$data)->with($title);
+        return view('admin.stock', $info)->with('data',$data);
     }
 
     /**
@@ -30,7 +37,14 @@ class StockController extends Controller
      */
     public function create()
     {
-        return view('admin.createStock');
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Tambah Stok Obat',
+            'username' => $admin->name,
+
+        );
+        return view('admin.createStock',$info);
     }
 
     /**
@@ -81,8 +95,15 @@ class StockController extends Controller
      */
     public function edit(string $id)
     {
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Edit Stok Obat',
+            'username' => $admin->name,
+
+        );
         $data=Stock::where('id',$id)->get()->first();
-        return view('admin.editStock')->with('data',$data);
+        return view('admin.editStock', $info)->with('data',$data);
     }
 
     /**
@@ -132,14 +153,15 @@ class StockController extends Controller
     }
     public function getExpiringStock()
     {
+        $today = Carbon::today()->toDateString();
         $limitDate = Carbon::now()->addMonths(3)->format('Y-m-d');
-        $expiringStock = Stock::where('expired_date', '<=', $limitDate)->get();
+        $expiringStock = Stock::whereBetween('expired_date', [$today, $limitDate])->orderBy('expired_date', 'asc')->paginate(10);
 
         return $expiringStock;
     }
     public function getOutOfStock(){
         $today = Carbon::today()->toDateString();
-        $outOfStock=stock::where('stok_sisa','<=',10)->whereDate('expired_date', '>', $today)->get();
+        $outOfStock=stock::where('stok_sisa','<=',10)->whereDate('expired_date', '>', $today)->paginate(10);
         return $outOfStock;
     }
 }

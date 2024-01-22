@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ExportTransaction;
 use App\Models\Transaction;
 use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Carbon;
@@ -16,6 +17,12 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Data Transaksi',
+            'username' => $admin->name
+        );
         $keyword = $request->keyword;
         $tanggalPelayanan = $request->tanggal_pelayanan;
 
@@ -31,7 +38,7 @@ class TransactionController extends Controller
 
         $data = $query->paginate(10);
 
-        return view('admin.transaction', compact('data'));
+        return view('admin.transaction', $info)->with('data',$data);
     }
 
 
@@ -40,19 +47,22 @@ class TransactionController extends Controller
      */
     public function create()
     {
-
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Tambah Transaksi',
+            'username' => $admin->name
+        );
         $today = Carbon::today()->toDateString();
 
         $stocks = Stock::where('stok_sisa', '>', 0)->whereDate('expired_date', '>', $today)->orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc')->get();
-        return view('admin.createTransaction', compact('stocks'));
+        return view('admin.createTransaction', $info)->with('stocks',$stocks);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request){
-        
-
         $stock = Stock::find($request->stock_id);
         $request->validate([
             'nama_pasien' => 'required',
@@ -103,8 +113,14 @@ class TransactionController extends Controller
      */
     public function edit(string $id)
     {
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Edit Transaksi',
+            'username' => $admin->name
+        );
         $data=Transaction::where('id',$id)->get()->first();
-        return view('admin.editTransaction')->with('data',$data);
+        return view('admin.editTransaction', $info)->with('data',$data);
     }
 
     /**
@@ -145,6 +161,12 @@ class TransactionController extends Controller
         return redirect()->route('admin.transaction.index')->with('success', 'Transa berhasil dihapus');
     }
     public function table(Request $request){
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Export',
+            'username' => $admin->name
+        );
         $tanggalPelayanan = $request->tanggal_pelayanan;
         $query = Transaction::orderBy('tanggal_pelayanan', 'asc')->orderBy('created_at', 'asc');
 

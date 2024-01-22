@@ -1,61 +1,107 @@
-@extends('layout.template')
-@section('title', 'Dashboard')
-@section('sidebar')
-    @parent
-
-    <!-- Konten Sidebar di sini -->
-    <ul>
-        <li><a href='/admin/transaction'>Transaksi</a></li>
-        <li><a href='/admin/stock'>Stok Obat</a></li>
-        <li><a href='logout'>Logout</a></li>
-        <!-- ... -->
-    </ul>
-@endsection
-@section('content')
-<form action='' method='post'>
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
-        {{$title}} {{$role}}
-
-        <h1>Selamat Datang, {{$name}}</h1>
-        <a href='logout' class="btn btn-danger btn-sm">Logout</a>
-        <a href='/admin/transaction' class="btn btn-primary btn-sm">Transaksi</a>
-        <a href='/admin/stock' class="btn btn-secondary btn-sm">Stok Obat</a>
-    </div>
-</form>
-<form action='' method='post'>
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
-        @php
-            $expiringStock = app('App\Http\Controllers\StockController')->getExpiringStock();
-        @endphp
-
-        @if(count($expiringStock) > 0)
-            <div class="alert alert-warning mt-3" role="alert">
-                Perhatian! Ada stok obat yang akan segera expire:
-                <ul>
-                    @foreach($expiringStock as $stock)
-                        <li>{{$stock->nama_obat}} - Expired Date: {{$stock->expired_date}}</li>
-                    @endforeach
-                </ul>
+@extends('component/sidebar')
+@section('section')
+    <div id="main-content">
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>{{ $title }}</h3>
+                        {{-- <p class="text-subtitle text-muted">Navbar will appear on the top of the page.</p> --}}
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                                <li class="breadcrumb-item"><a href='/admin/profile'>Profile</a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
             </div>
-        @endif
-    </div>
-</form>
-<form action='' method='post'>
-    <div class="my-3 p-3 bg-body rounded shadow-sm">
-        @php
-            $outOfStock = app('App\Http\Controllers\StockController')->getOutOfStock();
-        @endphp
 
-        @if(count($outOfStock) > 0)
-            <div class="alert alert-warning mt-3" role="alert">
-                Perhatian! Ada stok obat yang akan habis:
-                <ul>
-                    @foreach($outOfStock as $stock)
-                        <li>{{$stock->nama_obat}} - Stok Sisa: {{$stock->stok_sisa}}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+            <section class="section">
+                <div class="row">
+                    <div class="col-12 col-lg-12 col-md-12">
+                        <div class="card">
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <h6 class="text-small font-bold mx-6 mb-3"> Stok Segera Habis </h6>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1">No</th>
+                                            <th class="col-md-2">Nama Obat</th>
+                                            <th class="col-md-1">Stok Sisa</th>
+                                            <th class="col-md-2">Expired Date</th>
+                                            <th class="col-md-2">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i=$data1->firstItem() ?>
+                                        @foreach ($data1 as $item)
+                                        <tr>
+                                            <td>{{$i}}</td>
+                                            <td>{{$item->nama_obat}}</td>
+                                            <td>{{$item->stok_sisa}}</td>
+                                            <td>{{$item->expired_date}}</td>
+                                            <td>
+                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-primary btn-sm">Edit</a>                
+                                            </td>
+                                        </tr>
+                                        <?php $i++ ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <h6 class="text-small font-bold mx-6 mb-3"> Stok Mendekati Expired </h6>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-1">No</th>
+                                            <th class="col-md-2">Nama Obat</th>
+                                            <th class="col-md-1">Stok Sisa</th>
+                                            <th class="col-md-2">Expired Date</th>
+                                            <th class="col-md-2">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i=$data2->firstItem() ?>
+                                        @foreach ($data2 as $item)
+                                        <tr>
+                                            <td>{{$i}}</td>
+                                            <td>{{$item->nama_obat}}</td>
+                                            <td>{{$item->stok_sisa}}</td>
+                                            <td>{{$item->expired_date}}</td>
+                                            <td>
+                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-primary btn-sm">Edit</a>              
+                                            </td>
+                                        </tr>
+                                        <?php $i++ ?>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
     </div>
-</form>
 @endsection
