@@ -38,6 +38,8 @@ Route::middleware(['auth'])->group(function(){
 
         //Stock obat
         Route::get('/admin/stock',[StockController::class,'index'])->name('admin.stock.index');
+        Route::get('/admin/stock/table',[StockController::class,'table'])->name('admin.stock.table');
+        Route::get('/admin/stock/export/excel',[StockController::class, 'exportExcel'])->name('admin.stock.excel');
         Route::get('/admin/stock/create',[StockController::class,'create'])->name('admin.stock.create');
         Route::get('/admin/stock/update',[StockController::class,'update']);
         Route::post('/admin/stock/store',[StockController::class,'store'])->name('admin.stock.store');

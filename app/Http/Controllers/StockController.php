@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportStock;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 
 class StockController extends Controller
@@ -168,5 +170,38 @@ class StockController extends Controller
         $today = Carbon::today()->toDateString();
         $outOfStock=stock::where('stok_sisa','<=',10)->whereDate('expired_date', '>', $today)->paginate(10);
         return $outOfStock;
+    }
+
+    public function table(Request $request){
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $today = Carbon::today()->toDateString();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Export',
+            'username' => $admin->name
+        );
+        $filterExpired = $request->has('filterExpired');
+        $query = Stock::orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc');
+
+        if ($filterExpired) {
+            $query->whereDate('expired_date', '>', $today)->orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc');
+        }
+        $data = $query->get();
+
+        return view('component.tableStock', $info)->with('data',$data);
+    }
+    public function exportExcel(Request $request)
+    {
+        $filterExpired = $request->has('filterExpired');
+
+        // Query data sesuai tanggal pelayanan yang dipilih
+        $data = Stock::orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc');
+        if ($filterExpired) {
+            $data->whereDate('expired_date', '>', $today)->orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc');
+        }
+        $data = $data->get();
+
+        // Export data menggunakan ExportTransaction
+        return Stock::download(new ExportStock($data), 'rekapStok.xlsx');
     }
 }

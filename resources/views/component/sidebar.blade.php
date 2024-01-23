@@ -91,10 +91,7 @@
                             </li>
     
                             <li
-                                class="sidebar-item has-sub {{ $title === 'Data Stok Obat' ||
-                                $title === 'Tambah Stok Obat'
-                                    ? 'active'
-                                    : '' }}">
+                                class="sidebar-item has-sub {{ $title === 'Data Stok Obat' ||$title === 'Tambah Stok Obat'|| $title === 'Export Excel'? 'active': '' }}">
                                 <a href="#" class='sidebar-link'>
                                     <i class="bi bi-card-list"></i>
                                     <span>Stok Obat</span>
@@ -109,6 +106,12 @@
                                     <li class="submenu-item   {{ $title === 'Tambah Stok Obat' ? 'active' : '' }} ">
                                         <a href="/admin/stock/create" class="submenu-link">
                                             <span>Tambah Baru</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="submenu-item   {{ $title === 'Export Excel' ? 'active' : '' }} ">
+                                        <a href="/admin/stock/table" class="submenu-link">
+                                            <span>Export Data</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -144,7 +147,7 @@
 
                             <li class="sidebar-item {{ $title === '' ? 'active' : '' }}">
                                 <a href="/logout" class='sidebar-link'>
-                                    <i class="bi bi-power"></i>
+                                    <i class="icon-mid bi bi-box-arrow-left"></i>
                                     <span>Logout</span>
                                 </a>
                             </li>
@@ -206,6 +209,11 @@
     
                                         <li>
                                             <hr class="dropdown-divider">
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item" href="/admin/profile"><i
+                                                    class="bi bi-person-circle me-2"></i> Profile</a>
                                         </li>
     
                                         <li>
