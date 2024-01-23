@@ -14,7 +14,7 @@
     <button class="btn btn-secondary" type="submit">Filter</button>
 
     <!-- Tombol Export as Excel -->
-    <a href="{{url("/admin/stock/export/excel")}}?tanggal_pelayanan={{ Request::get('tanggal_pelayanan') }}" class="btn btn-success">Export as Excel</a>
+    <a href="{{ url("/admin/stock/export/excel") }}?filterExpired={{ $filterExpired ? 1 : 0 }}" class="btn btn-success">Export as Excel</a>
 </form>
 
 <table class="table table-striped">

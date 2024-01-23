@@ -163,12 +163,12 @@ class StockController extends Controller
     {
         $today = Carbon::today()->toDateString();
         $limitDate = Carbon::now()->addMonths(3)->format('Y-m-d');
-        $expiringStock = Stock::whereBetween('expired_date', [$today, $limitDate])->orderBy('expired_date', 'asc')->paginate(10);
+        $expiringStock = Stock::whereBetween('expired_date', [$today, $limitDate])->orderBy('expired_date', 'asc')->paginate(3, ['*'], 'expiring_page');
         return $expiringStock;
     }
     public function getOutOfStock(){
         $today = Carbon::today()->toDateString();
-        $outOfStock=stock::where('stok_sisa','<=',10)->whereDate('expired_date', '>', $today)->paginate(10);
+        $outOfStock=stock::where('stok_sisa','<=',10)->whereDate('expired_date', '>', $today)->paginate(3, ['*'], 'out_of_stock_page');
         return $outOfStock;
     }
 
@@ -193,6 +193,7 @@ class StockController extends Controller
     public function exportExcel(Request $request)
     {
         $filterExpired = $request->has('filterExpired');
+        $today = Carbon::today()->toDateString();
 
         // Query data sesuai tanggal pelayanan yang dipilih
         $data = Stock::orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc');
@@ -202,6 +203,9 @@ class StockController extends Controller
         $data = $data->get();
 
         // Export data menggunakan ExportTransaction
-        return Stock::download(new ExportStock($data), 'rekapStok.xlsx');
+        return Excel::download(new ExportStock($data), 'rekapStok.xlsx');
+    }
+    public function add(){
+        return view("admin.add");
     }
 }

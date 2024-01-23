@@ -63,7 +63,7 @@
                                             <th class="col-md-1">Stok Sisa</th>
                                             <th class="col-md-2">Harga Satuan</th>
                                             <th class="col-md-2">Expired Date</th>
-                                            <th class="col-md-2">Aksi</th>
+                                            <th class="col-md-2 text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -79,12 +79,15 @@
                                             <td>{{$item->harga_satuan}}</td>
                                             <td>{{$item->expired_date}}</td>
                                             <td>
-                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>
-                                                <form onsubmit="return confirm('Apakah anda yakin?')"class='d-inline' action="{{ url('admin/stock/'.$item->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
-                                                </form>                    
+                                                <div class="d-flex">
+                                                    <a href='{{url('admin/stock/'.$item->id.'/add')}}' class="btn btn-primary btn-sm me-2">Tambah</a>
+                                                    <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm me-2">Edit</a>
+                                                    <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="{{ url('admin/stock/'.$item->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
+                                                    </form>
+                                                </div>          
                                             </td>
                                         </tr>
                                         <?php $i++ ?>
@@ -113,7 +116,7 @@
                                             <th class="col-md-1">Stok Sisa</th>
                                             <th class="col-md-2">Harga Satuan</th>
                                             <th class="col-md-2">Expired Date</th>
-                                            <th class="col-md-2">Aksi</th>
+                                            <th class="col-md-2 text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -129,12 +132,14 @@
                                             <td>{{$item->harga_satuan}}</td>
                                             <td>{{$item->expired_date}}</td>
                                             <td>
-                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>
-                                                <form onsubmit="return confirm('Apakah anda yakin?')"class='d-inline' action="{{ url('admin/stock/'.$item->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
-                                                </form>                    
+                                                <div class="d-flex">
+                                                    <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>
+                                                    <form onsubmit="return confirm('Apakah anda yakin?')"class='d-inline' action="{{ url('admin/stock/'.$item->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
+                                                    </form>  
+                                                </div>                  
                                             </td>
                                         </tr>
                                         <?php $i++ ?>

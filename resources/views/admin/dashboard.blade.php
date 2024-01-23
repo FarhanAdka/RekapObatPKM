@@ -47,7 +47,7 @@
                                             <th class="col-md-2">Nama Obat</th>
                                             <th class="col-md-1">Stok Sisa</th>
                                             <th class="col-md-2">Expired Date</th>
-                                            <th class="col-md-2">Aksi</th>
+                                            <th class="col-md-2 text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -59,13 +59,17 @@
                                             <td>{{$item->stok_sisa}}</td>
                                             <td>{{$item->expired_date}}</td>
                                             <td>
-                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>                
+                                                <div class="d-flex">
+                                                    <a href='{{url('admin/stock/'.$item->id.'/add')}}' class="btn btn-primary btn-sm me-2">Tambah</a>   
+                                                    <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm ">Edit</a>
+                                                </div>                    
                                             </td>
                                         </tr>
                                         <?php $i++ ?>
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{$data1->appends(['data1_page' => $data1->currentPage()])->links()}}
                             </div>
                         </div>
                     </div>
@@ -100,6 +104,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{$data2->appends(['data2_page' => $data2->currentPage()])->links()}}
                             </div>
                         </div>
                     </div>

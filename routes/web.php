@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/admin/stock/update',[StockController::class,'update']);
         Route::post('/admin/stock/store',[StockController::class,'store'])->name('admin.stock.store');
         Route::get('/admin/stock/{id}/edit',[StockController::class,'edit'])->name('admin.stock.{id}.edit');
+        Route::get('/admin/stock/{id}/add',[StockController::class,'add'])->name('admin.stock.{id}.add');
         Route::put('/admin/stock/{id}/edit',[StockController::class,'update'])->name('admin.stock.store');
         Route::delete('/admin/stock/{id}', [StockController::class, 'destroy'])->name('admin.stock.destroy');
 

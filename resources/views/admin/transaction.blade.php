@@ -85,12 +85,14 @@
                                             <td>{{ $item->total_harga }}</td>
                                             <td>{{ $item->tanggal_pelayanan }}</td>
                                             <td>
-                                                <a href='{{ url("admin/transaction/$item->id/edit") }}' class="btn btn-warning btn-sm">Edit</a>
-                                                <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="{{ url("admin/transaction/$item->id") }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
-                                                </form>
+                                                <div class="d-flex">
+                                                    <a href='{{ url("admin/transaction/$item->id/edit") }}' class="btn btn-warning btn-sm">Edit</a>
+                                                    <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="{{ url("admin/transaction/$item->id") }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                         <?php $i++ ?>
