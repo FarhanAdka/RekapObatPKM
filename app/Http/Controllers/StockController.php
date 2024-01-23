@@ -21,15 +21,21 @@ class StockController extends Controller
             'username' => $admin->name,
 
         );
+        $today = Carbon::today()->toDateString();
+
+        // Non-Expired
         $keyword=$request->keyword;
         if(strlen($keyword)){
-            $data=Stock::where('nama_obat','like',"%$keyword%")->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
-            // ->orWhere('nama_obat','like',"%keyword%")
+            $data1=Stock::where('nama_obat','like',"%$keyword%")->whereDate('expired_date', '>', $today)->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
+            $data2=Stock::where('nama_obat','like',"%$keyword%")->whereDate('expired_date', '<=', $today)->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
         }
         else{
-            $data=Stock::orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
+            $data1=Stock::whereDate('expired_date', '>', $today)->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
+            $data1=Stock::whereDate('expired_date', '<=', $today)->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
         }
-        return view('admin.stock', $info)->with('data',$data);
+
+        //Expired
+        return view('admin.stock', $info)->with('data1',$data1)->with('data2',$data2);
     }
 
     /**
@@ -156,7 +162,6 @@ class StockController extends Controller
         $today = Carbon::today()->toDateString();
         $limitDate = Carbon::now()->addMonths(3)->format('Y-m-d');
         $expiringStock = Stock::whereBetween('expired_date', [$today, $limitDate])->orderBy('expired_date', 'asc')->paginate(10);
-
         return $expiringStock;
     }
     public function getOutOfStock(){

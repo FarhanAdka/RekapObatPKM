@@ -30,4 +30,21 @@ class UserController extends Controller
 
         return view('admin.dashboard', $info)->with('data1', $data1)->with('data2', $data2);
     }
+    function profile(){
+        $admin=User::where('id',auth()->user()->id)->get()->first();
+
+        $info = [
+            'active_side' => 'active',
+            'active_sub' => 'active',
+            'active_user' => 'active',
+            'title'=>'Profile',
+            'admin'=>$admin,
+            'username'=>$admin->name
+        ];
+
+        return view('admin.profile',$info);
+    }
+    function updateProfile(){
+        
+    }
 }

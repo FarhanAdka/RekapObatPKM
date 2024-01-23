@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <title>{{$title}}</title>
     <!-- Tambahkan stylesheet atau link ke CDN CSS yang diperlukan di sini -->
     <!DOCTYPE html>
     <html lang="en">
@@ -31,7 +31,7 @@
                     <div class="sidebar-header position-relative">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="logo"></div>
-                            <a href="index.html"><img src="/assets/compiled/png/logo.png" alt="Logo"
+                            <a href="index.html"><img src="/assets/compiled/png/logoPKM.png" alt="Logo"
                                     style="margin-left: 40px; width: 60px; height: auto;" srcset=""></a>
     
                             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
@@ -85,7 +85,7 @@
 
                             <li class="sidebar-item {{ $title === 'Profile' ? 'active' : '' }}">
                                 <a href="/admin/profile" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
+                                    <i class="bi bi-person-circle"></i>
                                     <span>Profile</span>
                                 </a>
                             </li>
@@ -96,7 +96,7 @@
                                     ? 'active'
                                     : '' }}">
                                 <a href="#" class='sidebar-link'>
-                                    <i class="bi bi-person-fill-add"></i>
+                                    <i class="bi bi-card-list"></i>
                                     <span>Stok Obat</span>
                                 </a>
                                 <ul class="submenu">
@@ -108,7 +108,7 @@
     
                                     <li class="submenu-item   {{ $title === 'Tambah Stok Obat' ? 'active' : '' }} ">
                                         <a href="/admin/stock/create" class="submenu-link">
-                                            <span>Tambah Stok Baru</span>
+                                            <span>Tambah Baru</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -130,13 +130,13 @@
     
                                     <li class="submenu-item   {{ $title === 'Tambah Transaksi' ? 'active' : '' }} ">
                                         <a href="/admin/transaction/create" class="submenu-link">
-                                            <span>Tambah Transaksi Baru</span>
+                                            <span>Tambah Baru</span>
                                         </a>
                                     </li>
 
                                     <li class="submenu-item   {{ $title === 'Export' ? 'active' : '' }} ">
                                         <a href="/admin/transaction/table" class="submenu-link">
-                                            <span>Export</span>
+                                            <span>Export Data</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -144,7 +144,7 @@
 
                             <li class="sidebar-item {{ $title === '' ? 'active' : '' }}">
                                 <a href="/logout" class='sidebar-link'>
-                                    <i class="bi bi-grid-fill"></i>
+                                    <i class="bi bi-power"></i>
                                     <span>Logout</span>
                                 </a>
                             </li>

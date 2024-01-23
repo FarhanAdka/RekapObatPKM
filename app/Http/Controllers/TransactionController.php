@@ -175,7 +175,7 @@ class TransactionController extends Controller
         }
         $data = $query->get();
 
-        return view('component.tableTransaction', compact('data'));
+        return view('component.tableTransaction', $info)->with('data',$data);
     }
     public function exportExcel(Request $request)
     {

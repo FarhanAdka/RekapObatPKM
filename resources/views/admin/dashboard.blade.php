@@ -54,7 +54,7 @@
                                             <td>{{$item->stok_sisa}}</td>
                                             <td>{{$item->expired_date}}</td>
                                             <td>
-                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-primary btn-sm">Edit</a>                
+                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>                
                                             </td>
                                         </tr>
                                         <?php $i++ ?>
@@ -88,7 +88,7 @@
                                             <td>{{$item->stok_sisa}}</td>
                                             <td>{{$item->expired_date}}</td>
                                             <td>
-                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-primary btn-sm">Edit</a>              
+                                                <a href='{{url('admin/stock/'.$item->id.'/edit')}}' class="btn btn-warning btn-sm">Edit</a>              
                                             </td>
                                         </tr>
                                         <?php $i++ ?>
