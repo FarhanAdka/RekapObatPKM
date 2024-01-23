@@ -26,7 +26,7 @@ class SessionController extends Controller
         ];
 
         if(Auth::attempt($infologin)){
-            return redirect('admin');
+            return redirect('admin')->with('success', 'Anda berhasil login');
         }
         else{
             return redirect('')->withErrors('Username atau pasword tidak sesuai')->withInput();

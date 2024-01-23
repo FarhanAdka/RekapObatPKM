@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,13 +39,31 @@ class UserController extends Controller
             'active_sub' => 'active',
             'active_user' => 'active',
             'title'=>'Profile',
-            'admin'=>$admin,
             'username'=>$admin->name
         ];
 
-        return view('admin.profile',$info);
+        return view('admin.profile',$info)->with('admin',$admin);
     }
-    function updateProfile(){
-        
+    function updateProfile(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,' . auth()->user()->id,
+            'password' => 'nullable|string|min:6',
+        ]);
+    
+        $admin = User::find(auth()->user()->id);
+    
+        $data = [
+            'name' => $request->name,
+            'username' => $request->username,
+        ];
+    
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+    
+        $admin->update($data);
+    
+        return redirect()->route('admin.profile')->with('success', 'Profile berhasil diubah');
     }
 }

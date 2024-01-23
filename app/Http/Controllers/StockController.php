@@ -31,7 +31,7 @@ class StockController extends Controller
         }
         else{
             $data1=Stock::whereDate('expired_date', '>', $today)->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
-            $data1=Stock::whereDate('expired_date', '<=', $today)->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
+            $data2=Stock::whereDate('expired_date', '<=', $today)->orderBy('nama_obat','asc')->orderBy('expired_date','asc')->paginate(10);
         }
 
         //Expired

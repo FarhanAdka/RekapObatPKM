@@ -33,7 +33,8 @@ Route::middleware(['auth'])->group(function(){
     Route::middleware(['userAccess:admin'])->group(function (){
         //Dashboard dan Profil
         Route::get('/admin',[UserController::class,'admin']);
-        Route::get('/admin/profile',[UserController::class,'profile']);
+        Route::get('/admin/profile',[UserController::class,'profile'])->name('admin.profile');
+        Route::post('/admin/profile/update',[UserController::class,'updateProfile'])->name('admin.profile.update');
 
         //Stock obat
         Route::get('/admin/stock',[StockController::class,'index'])->name('admin.stock.index');
