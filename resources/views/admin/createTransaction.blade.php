@@ -78,7 +78,7 @@
                                         <select class="form-select" name="stock_id" id="stock_id" required>
                                             <option value="" disabled selected>Pilih Nama Obat</option>
                                             @foreach ($stocks as $stock)
-                                                <option value="{{ $stock->id }}">{{ $stock->nama_obat }}</option>
+                                                <option value="{{ $stock->id }}">{{ $stock->nama_obat }} ({{$stock->expired_date}}), sisa: {{$stock->stok_sisa}}</option>
                                             @endforeach
                                         </select>
                                     </div>

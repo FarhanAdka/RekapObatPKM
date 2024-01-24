@@ -110,6 +110,83 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-12 col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <h6 class="text-small font-bold mx-6 mb-3"> Stok Obat</h6>
+                                <div class="row">
+                                    <a href="/admin/stock">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-start">
+                                            <div class="stats-icon blue mb-2 text-center w-100 justify-content-start">
+                                                <i class="bi bi-folder-fill mx-3 mb-4 "></i>
+                                                <h6 class="text-white font-semibold mx-0 mb-0"> Data Stok Obat </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="/admin/stock/create">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-start">
+                                            <div class="stats-icon blue mb-2 text-center w-100 justify-content-start">
+                                                <i class="bi bi-folder-plus mx-3 mb-4 "></i>
+                                                <h6 class="text-white font-semibold mx-0 mb-0"> Tambah Stok Baru </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="/admin/stock/table">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-start">
+                                            <div class="stats-icon blue mb-2 text-center w-100 justify-content-start">
+                                                <i class="bi bi-file-earmark-excel-fill mx-3 mb-4 "></i>
+                                                <h6 class="text-white font-semibold mx-0 mb-0"> Export Data Stok </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 col-md-6">
+                        <div class="card">
+                            <div class="card-body px-4 py-4-5">
+                                <h6 class="text-small font-bold mx-6 mb-3">Transaksi</h6>
+                                <div class="row">
+                                    <a href="/admin/transaction">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-start">
+                                            <div class="stats-icon blue mb-2 text-center w-100 justify-content-start">
+                                                <i class="bi bi-person-lines-fill mx-3 mb-4 "></i>
+                                                <h6 class="text-white font-semibold mx-0 mb-0"> Data Transaksi </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="/admin/transaction/create">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-start">
+                                            <div class="stats-icon blue mb-2 text-center w-100 justify-content-start">
+                                                <i class="bi bi-person-fill-add mx-3 mb-4 "></i>
+                                                <h6 class="text-white font-semibold mx-0 mb-0"> Tambah Transaksi Baru </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+
+                                    <a href="/admin/transaction/table">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-start">
+                                            <div class="stats-icon blue mb-2 text-center w-100 justify-content-start">
+                                                <i class="bi bi-file-earmark-excel-fill mx-3 mb-4 "></i>
+                                                <h6 class="text-white font-semibold mx-0 mb-0"> Export Data Transaksi </h6>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </section>
 
         </div>

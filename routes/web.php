@@ -41,11 +41,13 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/admin/stock/table',[StockController::class,'table'])->name('admin.stock.table');
         Route::get('/admin/stock/export/excel',[StockController::class, 'exportExcel'])->name('admin.stock.excel');
         Route::get('/admin/stock/create',[StockController::class,'create'])->name('admin.stock.create');
-        Route::get('/admin/stock/update',[StockController::class,'update']);
         Route::post('/admin/stock/store',[StockController::class,'store'])->name('admin.stock.store');
         Route::get('/admin/stock/{id}/edit',[StockController::class,'edit'])->name('admin.stock.{id}.edit');
-        Route::get('/admin/stock/{id}/add',[StockController::class,'add'])->name('admin.stock.{id}.add');
         Route::put('/admin/stock/{id}/edit',[StockController::class,'update'])->name('admin.stock.store');
+        Route::get('/admin/stock/update',[StockController::class,'update']);
+        Route::get('/admin/stock/{id}/add',[StockController::class,'add'])->name('admin.stock.{id}.add');
+        Route::put('/admin/stock/{id}/add',[StockController::class,'storeAdd'])->name('admin.stock.store');
+        Route::get('/admin/stock/storeAdd',[StockController::class,'storeAdd']);
         Route::delete('/admin/stock/{id}', [StockController::class, 'destroy'])->name('admin.stock.destroy');
 
 

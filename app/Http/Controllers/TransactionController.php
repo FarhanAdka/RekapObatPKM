@@ -192,22 +192,5 @@ class TransactionController extends Controller
         // Export data menggunakan ExportTransaction
         return Excel::download(new ExportTransaction($data), 'rekapTransaksi.xlsx');
     }
-
-    //Sementara Karena Import Maatwebsitenya Ngambek
-    // public function exportExcelStock(Request $request)
-    // {
-    //     $filterExpired = $request->has('filterExpired');
-    //     $today = Carbon::today()->toDateString();
-
-    //     // Query data sesuai tanggal pelayanan yang dipilih
-    //     $data = Stock::orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc');
-    //     if ($filterExpired) {
-    //         $data->whereDate('expired_date', '>', $today)->orderBy('nama_obat', 'asc')->orderBy('expired_date', 'asc');
-    //     }
-    //     $data = $data->get();
-
-    //     // Export data menggunakan ExportTransaction
-    //     return Excel::download(new ExportStock($data), 'rekapStok.xlsx');
-    // }
     
 }

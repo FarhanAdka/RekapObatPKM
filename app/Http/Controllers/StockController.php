@@ -168,7 +168,7 @@ class StockController extends Controller
     }
     public function getOutOfStock(){
         $today = Carbon::today()->toDateString();
-        $outOfStock=stock::where('stok_sisa','<=',10)->whereDate('expired_date', '>', $today)->paginate(3, ['*'], 'out_of_stock_page');
+        $outOfStock=stock::where('stok_sisa','<=',10)->whereDate('expired_date', '>', $today)->orderBy('nama_obat','asc')->orderBy('expired_date', 'asc')->paginate(3, ['*'], 'out_of_stock_page');
         return $outOfStock;
     }
 
@@ -205,7 +205,34 @@ class StockController extends Controller
         // Export data menggunakan ExportTransaction
         return Excel::download(new ExportStock($data), 'rekapStok.xlsx');
     }
-    public function add(){
-        return view("admin.add");
+    public function add(string $id)
+    {
+        $admin = User::where('id', auth()->user()->id)->get()->first();
+        $info = array (
+            'active_home' => 'active',
+            'title' => 'Tambah Stok Obat',
+            'username' => $admin->name,
+
+        );
+        $data=Stock::where('id',$id)->get()->first();
+        return view('admin.addStock', $info)->with('data',$data);
     }
+    public function storeAdd(Request $request, string $id)
+    {
+        $request->validate([
+            'additional' => 'required|numeric|min:0',
+        ], [
+            'additional.required' => 'Additional value wajib diisi',
+            'additional.numeric' => 'Isian harus berupa angka',
+        ]);
+
+        $stock = Stock::find($id);
+
+        // Add the additional value to the existing 'stok_masuk'
+        $stock->stok_masuk += $request->additional;
+        $stock->save();
+
+        return redirect()->route('admin.stock.index')->with('success', 'Stok masuk berhasil ditambahkan');
+    }
+
 }
