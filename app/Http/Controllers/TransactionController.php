@@ -79,19 +79,30 @@ class TransactionController extends Controller
             'rt_rw.required'=> 'RT/RW wajib diisi',
             'stock_id.required'=> 'Obat wajib diisi',
             'jumlah_obat.required'=> 'Jumlah wajib diisi',
+            'jumlah_obat.numeric'=> 'Jumlah obat harus berupa angka',
             'tanggal_pelayanan.required'=> 'Tanggal wajib diisi',
             'jumlah_obat.min:1'=> 'Jumlah obat minimal satu',
             'jumlah_obat.max'=> 'Jumlah obat melebihi stok sisa'
 
         ]);
-        Transaction::create([
+        $data=[
             'nama_pasien' => $request->nama_pasien,
             'alamat' => $request->alamat,
             'rt_rw' => $request->rt_rw,
             'stock_id' => $request->stock_id,
             'jumlah_obat' => $request->jumlah_obat,
             'tanggal_pelayanan' => $request->tanggal_pelayanan
-        ]);
+        ];
+
+        Transaction::create($data);
+        // Transaction::create([
+        //     'nama_pasien' => $request->nama_pasien,
+        //     'alamat' => $request->alamat,
+        //     'rt_rw' => $request->rt_rw,
+        //     'stock_id' => $request->stock_id,
+        //     'jumlah_obat' => $request->jumlah_obat,
+        //     'tanggal_pelayanan' => $request->tanggal_pelayanan
+        // ]);
 
         $stock->stok_keluar += $request->jumlah_obat;
         $stock->save();
@@ -138,17 +149,30 @@ class TransactionController extends Controller
             'nama_pasien.required' => 'Nama pasien wajib diisi',
             'alamat.required' => 'Alamat wajib diisi',
             'rt_rw.required' => 'RT/RW wajib diisi',
+            'jumlah_obat.required'=> 'Jumlah wajib diisi',
+            'jumlah_obat.numeric'=> 'Jumlah obat harus berupa angka',
+            'jumlah_obat.min:1'=> 'Jumlah obat minimal satu',
             'tanggal_pelayanan.required' => 'Tanggal pelayanan wajib diisi',
         ]);
-
-        // Menggunakan nilai total_harga yang dihasilkan oleh getTotalHargaAttribute
+        $data=[
+            'nama_pasien' => $request->nama_pasien,
+            'alamat' => $request->alamat,
+            'rt_rw' => $request->rt_rw,
+            // 'stock_id' => $request->stock_id,
+            'jumlah_obat' => $request->jumlah_obat,
+            'tanggal_pelayanan' => $request->tanggal_pelayanan
+        ];
         $transaction = Transaction::find($id);
-        $transaction->nama_pasien = $request->nama_pasien;
-        $transaction->alamat = $request->alamat;
-        $transaction->rt_rw = $request->rt_rw;
-        $transaction->jumlah_obat = $request->jumlah_obat;
-        $transaction->tanggal_pelayanan = $request->tanggal_pelayanan;
+        $transaction->fill($data);
         $transaction->save();
+        
+        // $transaction = Transaction::find($id);
+        // $transaction->nama_pasien = $request->nama_pasien;
+        // $transaction->alamat = $request->alamat;
+        // $transaction->rt_rw = $request->rt_rw;
+        // $transaction->jumlah_obat = $request->jumlah_obat;
+        // $transaction->tanggal_pelayanan = $request->tanggal_pelayanan;
+        // $transaction->save();
 
         return redirect()->route('admin.transaction.index')->with('success', 'Transaksi berhasil diubah');
     }

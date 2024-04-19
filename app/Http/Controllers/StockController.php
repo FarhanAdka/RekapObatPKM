@@ -65,7 +65,7 @@ class StockController extends Controller
             'satuan'=> 'required',
             'stok_masuk'=> 'required|numeric|min:0',
             'stok_keluar'=> 'required|numeric|min:0|max:'. $request->stok_masuk,
-            'harga_satuan'=> 'required',
+            'harga_satuan'=> 'required|numeric|min:0',
             'expired_date'=>'required'
         ],[
             'nama_obat.required'=> 'Nama obat wajib diisi',
@@ -73,9 +73,13 @@ class StockController extends Controller
             'stok_masuk.required'=> 'Stok masuk wajib diisi',
             'stok_keluar.required'=> 'Stok keluar wajib diisi',
             'harga_satuan.required'=> 'Harga satuan wajib diisi',
+            'harga_satuan.numeric'=> 'Harga satuan harus berupa angka',
+            'harga_satuan.min'=> 'Harga satuan tidak boleh negatif',
             'expired_date.required'=> 'Expired date wajib diisi',
-            'stok_masuk.numeric'=> 'Isian harus berupa angka',
-            'stok_keluar.numeric'=> 'Isian harus berupa angka',
+            'stok_masuk.numeric'=> 'Stok masuk harus berupa angka',
+            'stok_masuk.min'=> 'Stok masuk tidak boleh negatif',
+            'stok_keluar.min'=> 'Stok keluar tidak boleh negatif',
+            'stok_keluar.numeric'=> 'Stok keluar harus berupa angka',
             'stok_keluar.max' => 'Stok keluar tidak boleh melebihi stok masuk'
         ]);
         $data=[
@@ -124,7 +128,7 @@ class StockController extends Controller
             'satuan'=> 'required',
             'stok_masuk'=> 'required|numeric|min:0',
             'stok_keluar'=> 'required|numeric|min:0|max:'. $request->stok_masuk,
-            'harga_satuan'=> 'required',
+            'harga_satuan'=> 'required|numeric|min:0',
             'expired_date'=>'required'
         ],[
             'nama_obat.required'=> 'Nama obat wajib diisi',
@@ -132,9 +136,13 @@ class StockController extends Controller
             'stok_masuk.required'=> 'Stok masuk wajib diisi',
             'stok_keluar.required'=> 'Stok keluar wajib diisi',
             'harga_satuan.required'=> 'Harga satuan wajib diisi',
+            'harga_satuan.numeric'=> 'Harga satuan harus berupa angka',
+            'harga_satuan.min'=> 'Harga satuan tidak boleh negatif',
             'expired_date.required'=> 'Expired date wajib diisi',
-            'stok_masuk.numeric'=> 'Isian harus berupa angka',
-            'stok_keluar.numeric'=> 'Isian harus berupa angka',
+            'stok_masuk.min'=> 'Stok masuk tidak boleh negatif',
+            'stok_keluar.min'=> 'Stok keluar tidak boleh negatif',
+            'stok_masuk.numeric'=> 'Stok masuk harus berupa angka',
+            'stok_keluar.numeric'=> 'Stok keluar harus berupa angka',
             'stok_keluar.max' => 'Stok keluar tidak boleh melebihi stok masuk'
         ]);
         $data=[
@@ -224,6 +232,7 @@ class StockController extends Controller
         ], [
             'additional.required' => 'Additional value wajib diisi',
             'additional.numeric' => 'Isian harus berupa angka',
+            'additional.min'=> 'Isian tidak boleh angka negatif'
         ]);
 
         $stock = Stock::find($id);
