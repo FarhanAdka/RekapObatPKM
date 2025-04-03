@@ -146,7 +146,7 @@
                             </li>
 
                             <li class="sidebar-item {{ $title === '' ? 'active' : '' }}">
-                                <a href="/logout" class='sidebar-link'>
+                                <a href="/logout" class='sidebar-link' onclick="return confirm('Apakah anda yakin ingin logout?')">
                                     <i class="icon-mid bi bi-box-arrow-left"></i>
                                     <span>Logout</span>
                                 </a>

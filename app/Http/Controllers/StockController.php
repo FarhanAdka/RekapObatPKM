@@ -66,7 +66,8 @@ class StockController extends Controller
             'stok_masuk'=> 'required|numeric|min:0',
             'stok_keluar'=> 'required|numeric|min:0|max:'. $request->stok_masuk,
             'harga_satuan'=> 'required|numeric|min:0',
-            'expired_date'=>'required'
+            'expired_date'=>'required',
+            'scan_kk' => 'required|file|mimes:pdf|max:2048'
         ],[
             'nama_obat.required'=> 'Nama obat wajib diisi',
             'satuan.required'=> 'Satuan wajib diisi',
