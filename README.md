@@ -1,7 +1,7 @@
 ## Sistem Informasi Stok Obat (Medicine Inventory Information System)
 
 **Institution:** UPTD Puskesmas Wanareja 1 ((Wanareja 1 Public Health Center)
-**Periode:** January 2024 - February 2024 (Practical Work Experience)
+**Periode:** January - February 2024 (Practical Work Experience)
 
 **Description:** This project aimed to develop an efficient medicine inventory and transaction recapitulation system to assist in tracking stock, managing transactions, and generating medicine reports.
 
