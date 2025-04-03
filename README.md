@@ -7,10 +7,10 @@
 
 **Tech Stack:** PHP, Laravel, XAMPP, MYSQL, Mazer Admin Dashboard Template
 
-**My Contribution:**
-* Developed the stock management feature, including adding, reducing, and updating stock, as well as generating stock reports in Excel format.
-* Developed the transaction management feature, including adding, reducing, and updating drug transactions, as well as generating medicine transaction reports in Excel format.
-* Conducted unit and integration testing to ensure proper functionality.
+**Key Features:**
+* **Dashboard**, including stock condition (nearly runs out/ expired)
+* **Stock management**, including adding, reducing, and updating stock, as well as generating stock reports in Excel format.
+* **Transaction management**, including adding, reducing, and updating drug transactions, as well as generating medicine transaction reports in Excel format.
 
 **Challenges and Solutions:**
 * Addapted the system to existing computer hardware. The solution involved using a development framework version that was easily integrated.
